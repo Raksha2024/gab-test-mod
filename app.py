@@ -7,7 +7,7 @@ import subprocess
 app = Flask(__name__)
 
 # Static information about the application
-APP_VERSION = "1.0"
+APP_VERSION = "1.1"
 APP_DESCRIPTION = "Simple Health Check Application"
 
 def get_last_commit_sha():
