@@ -1,18 +1,32 @@
-FROM python:3.10-slim
+# Dockerfile
+FROM python:3.11-slim AS base
 
-#set the working dir
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV FLASK_SECRET_KEY='G@btechnicalmod-test2024'
+
+# Set the working directory
 WORKDIR /app
 
-#copy the requirements.txt and install dependencies
-COPY requirements.txt requirements.txt
+# Copy the requirements file and install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-#Copy the app to container
-COPY app.py .
+# Copy the rest of the application code
+COPY . .
 
-#Expose port
+# Expose the port the app runs on
 EXPOSE 3000
 
-#Command to run the app
-CMD ["python", "app.py"]
+# Build stage for testing
+FROM base AS test
 
+# Run unit tests
+RUN python -m unittest discover -s tests
+
+# Final stage
+FROM base AS final
+
+# Run the application
+CMD ["python", "app.py"]
