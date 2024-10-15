@@ -1,5 +1,5 @@
 # mod-technical-test
-
+```
 ├── app/                               # Flask application code
 │   ├── __init__.py                    # App initialization code
 │   ├── app.py                         # Main entry point of the Flask app
@@ -35,6 +35,7 @@
 ├── README.md                          # Documentation
 └── .gitignore                         # Git ignore file
 
+```
 
 Sure! Below is a step-by-step guide to create a simple Python application that meets the requirements outlined in your challenge. We'll use the **Flask** framework to create a web application with a `/healthcheck` endpoint that returns application metadata in JSON format.
 
