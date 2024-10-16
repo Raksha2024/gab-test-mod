@@ -1,3 +1,7 @@
+#Terraform notes
+
+
+```t
 provider "aws" {
   region = "eu-west-2"
 }
@@ -23,7 +27,7 @@ resource "aws_subnet" "gab_subnet" {
 }
 
 resource "aws_internet_gateway" "gab_igw" {
-  vpc_id = aws_vpc.gab_vpc.id
+  vpc_id = aws_vpc.devopsshack_vpc.id
 
   tags = {
     Name = "gab-igw"
@@ -86,20 +90,9 @@ resource "aws_security_group" "gab_node_sg" {
   }
 }
 
-# Create ECR repository for storing Docker images
-resource "aws_ecr_repository" "gab_app_repo" {
-  name                 = "gab-app-repo"
-  image_tag_mutability = "MUTABLE"
-  force_delete         = true  # Ensures ECR repository is deleted on terraform destroy
-
-  tags = {
-    Name = "gab-app-repo"
-  }
-}
-
 resource "aws_eks_cluster" "gab" {
   name     = "gab-cluster"
-  role_arn = aws_iam_role.gab_cluster_role.arn
+  role_arn = aws_iam_role.devopsshack_cluster_role.arn
 
   vpc_config {
     subnet_ids         = aws_subnet.gab_subnet[*].id
@@ -127,7 +120,6 @@ resource "aws_eks_node_group" "gab" {
   }
 }
 
-# IAM Role for the EKS Cluster
 resource "aws_iam_role" "gab_cluster_role" {
   name = "gab-cluster-role"
 
@@ -152,7 +144,6 @@ resource "aws_iam_role_policy_attachment" "gab_cluster_role_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-# IAM Role for EKS Nodes
 resource "aws_iam_role" "gab_node_group_role" {
   name = "gab-node-group-role"
 
@@ -182,9 +173,8 @@ resource "aws_iam_role_policy_attachment" "gab_node_group_cni_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-# Add permissions for the node group to pull images from ECR
-resource "aws_iam_role_policy_attachment" "gab_node_group_ecr_policy" {
+resource "aws_iam_role_policy_attachment" "gab_node_group_registry_policy" {
   role       = aws_iam_role.gab_node_group_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
-
+```t
