@@ -1,4 +1,41 @@
 # mod-technical-test
+```
+├── app/                               # Flask application code
+│   ├── __init__.py                    # App initialization code
+│   ├── app.py                         # Main entry point of the Flask app
+│   ├── templates/                     # HTML templates for Flask (if using Jinja2)
+│   ├── static/                        # Static files (CSS, JS, images)
+│   ├── forms.py                       # Flask-WTF form definitions
+│   ├── models.py                      # Database models (if any)
+│   ├── requirements.txt               # Python dependencies
+│   └── Dockerfile                     # Dockerfile to build the Flask app
+│
+├── terraform/                         # Terraform configuration
+│   ├── main.tf                        # Main Terraform config file
+│   ├── variables.tf                   # Terraform variables
+│   ├── outputs.tf                     # Terraform outputs
+│   ├── eks.tf                         # Terraform config for EKS cluster
+│   ├── vpc.tf                         # Terraform config for VPC
+│   ├── security.tf                    # Security group, IAM roles, and policies
+│   ├── modules/                       # Reusable Terraform modules
+│   │   └── eks-cluster/               # EKS cluster module
+│   │       ├── main.tf                # EKS module main config
+│   │       ├── variables.tf           # EKS module variables
+│   │       ├── outputs.tf             # EKS module outputs
+│   └── k8s/                           # Kubernetes resource definitions
+│       ├── deployment.yaml            # Kubernetes Deployment for Flask app
+│       └── service.yaml               # Kubernetes Service (LoadBalancer)
+│
+├── .github/                           # GitHub-related files
+│   └── workflows/                     # GitHub Actions workflows
+│       └── ci-cd.yaml                 # CI/CD pipeline for automated build, test, and deploy
+│
+├── k8s-deployment.yaml                # Kubernetes deployment file (optional)
+├── k8s-service.yaml                   # Kubernetes service file (optional)
+├── README.md                          # Documentation
+└── .gitignore                         # Git ignore file
+
+```
 
 Sure! Below is a step-by-step guide to create a simple Python application that meets the requirements outlined in your challenge. We'll use the **Flask** framework to create a web application with a `/healthcheck` endpoint that returns application metadata in JSON format.
 
