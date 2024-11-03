@@ -4,6 +4,7 @@ from app import app
 
 class FlaskAppTests(unittest.TestCase):
 
+
     def setUp(self):
         """Set up test client before each test."""
         self.app = app.test_client()
@@ -23,6 +24,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(json_data['description'], "Gabriel Okom's pre-interview technical test.")
         self.assertEqual(json_data['version'], "1.0")
         self.assertIsInstance(json_data['last_commit_sha'], str)  # Check that it's a string
+
 
 if __name__ == '__main__':
     unittest.main()
