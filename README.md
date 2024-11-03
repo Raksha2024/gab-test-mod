@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # mod-technical-test
 ```
 ├── app/                               # Flask application code
@@ -237,3 +238,6 @@ Now you have a simple Python application with the following capabilities:
 - A CI pipeline using GitHub Actions that builds the Docker image on each push to the repository.
 
 Feel free to expand this application by adding tests, logging, and more advanced error handling as needed!
+=======
+#####
+>>>>>>> 6c912cad9fdc741766866167c77b1d62d6823f5a
