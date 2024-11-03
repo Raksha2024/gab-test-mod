@@ -4,7 +4,8 @@ Gabriel Okom's Documentation
 
 # CI/CD Project: Deploy a Python App with Docker, ECR, Kubernetes, Terraform, and GitHub Actions on DEV and PROD Branching Strategy
 
-![image](https://github.com/user-attachments/assets/6da0ee6c-8f0e-4c27-a9c4-570e292faf3b)
+![1_Mgs29N9bLM946VauWzfLvQ](https://github.com/user-attachments/assets/7323a3d4-65d6-4a6e-aa6c-af4912e082ec)
+
 
 
 ### Table of Contents
