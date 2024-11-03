@@ -135,7 +135,8 @@ Test the healthcheck endpoint:
 ```bash
 curl http://localhost:3000/healthcheck
 ```
-![image](https://github.com/user-attachments/assets/71bdc671-31be-466f-8152-54d11f483592)
+![image](https://github.com/user-attachments/assets/a5852d26-8462-47fd-a750-aa7f38166b8a)
+
 
 ### 3. CI/CD Pipeline Implementation
 - **Login to AWS**: Set up AWS credentials.
