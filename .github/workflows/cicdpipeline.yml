@@ -113,7 +113,7 @@ jobs:
 
       - name: Get Last Commit SHA
         id: get_last_commit
-        run: echo "last_commit_sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        run: echo "LAST_COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Install jq
         run: |

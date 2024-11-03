@@ -18,7 +18,10 @@ APP_DESCRIPTION = "Gabriel Okom's pre-interview technical test."
 
 
 def get_last_commit_sha():
-    """Get the last commit SHA from Git."""
+    """Get the last commit SHA from Git or environment variable."""
+    commit_sha = os.getenv("LAST_COMMIT_SHA")
+    if commit_sha:
+        return commit_sha
     try:
         return subprocess.check_output(
             ["git", "rev-parse", "HEAD"]

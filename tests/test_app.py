@@ -14,7 +14,7 @@ class FlaskAppTests(unittest.TestCase):
         """Test if the login page loads correctly."""
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Login', response.data)  # Adjusted based on your HTML content
+        self.assertIn(b'Login', response.data)  # Adjusted based on HTML content
 
     def test_healthcheck(self):
         """Test the healthcheck endpoint."""
