@@ -139,9 +139,15 @@ jobs:
           aws eks update-kubeconfig --name $CLUSTER_NAME --region ${{ secrets.AWS_REGION }}
 
       - name: Make update-k8s-yaml.sh executable
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          ECR_REGION: ${{ secrets.AWS_REGION }}
         run: chmod +x ./kubernetes/update-k8s-yaml.sh
 
       - name: Update Kubernetes Deployment YAML
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          ECR_REGION: ${{ secrets.AWS_REGION }}
         run: ./kubernetes/update-k8s-yaml.sh 
 
       - name: Deploy to Kubernetes
