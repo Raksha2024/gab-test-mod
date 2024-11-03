@@ -1,243 +1,197 @@
-<<<<<<< HEAD
-# mod-technical-test
-```
-├── app/                               # Flask application code
-│   ├── __init__.py                    # App initialization code
-│   ├── app.py                         # Main entry point of the Flask app
-│   ├── templates/                     # HTML templates for Flask (if using Jinja2)
-│   ├── static/                        # Static files (CSS, JS, images)
-│   ├── forms.py                       # Flask-WTF form definitions
-│   ├── models.py                      # Database models (if any)
-│   ├── requirements.txt               # Python dependencies
-│   └── Dockerfile                     # Dockerfile to build the Flask app
-│
-├── terraform/                         # Terraform configuration
-│   ├── main.tf                        # Main Terraform config file
-│   ├── variables.tf                   # Terraform variables
-│   ├── outputs.tf                     # Terraform outputs
-│   ├── eks.tf                         # Terraform config for EKS cluster
-│   ├── vpc.tf                         # Terraform config for VPC
-│   ├── security.tf                    # Security group, IAM roles, and policies
-│   ├── modules/                       # Reusable Terraform modules
-│   │   └── eks-cluster/               # EKS cluster module
-│   │       ├── main.tf                # EKS module main config
-│   │       ├── variables.tf           # EKS module variables
-│   │       ├── outputs.tf             # EKS module outputs
-│   └── k8s/                           # Kubernetes resource definitions
-│       ├── deployment.yaml            # Kubernetes Deployment for Flask app
-│       └── service.yaml               # Kubernetes Service (LoadBalancer)
-│
-├── .github/                           # GitHub-related files
-│   └── workflows/                     # GitHub Actions workflows
-│       └── ci-cd.yaml                 # CI/CD pipeline for automated build, test, and deploy
-│
-├── k8s-deployment.yaml                # Kubernetes deployment file (optional)
-├── k8s-service.yaml                   # Kubernetes service file (optional)
-├── README.md                          # Documentation
-└── .gitignore                         # Git ignore file
+Here's a comprehensive README for your CI/CD project that highlights the tools, objectives, structure, and detailed steps for employers to understand your work:
+
+---
+
+# CI/CD Project: Deploy a Python App with Docker, ECR, Kubernetes, Terraform, and GitHub Actions
+
+### Table of Contents
+1. [DevOps Ticket Details (Job Scenario)](#devops-ticket-details)
+2. [Introduction](#introduction)
+3. [Prerequisites](#prerequisites)
+4. [Key Technologies & Tools](#key-technologies--tools)
+5. [Pipeline Workflow Overview](#pipeline-workflow-overview)
+6. [Repository Structure](#repository-structure)
+7. [Setup and Configuration](#setup-and-configuration)
+8. [Local Build and Testing](#local-build-and-testing)
+9. [CI/CD Pipeline Implementation](#ci-cd-pipeline-implementation)
+10. [Kubernetes Configuration](#kubernetes-configuration)
+11. [Security Checks](#security-checks)
+12. [Branching Strategy](#branching-strategy)
+13. [Known Risks](#known-risks)
+14. [Final Testing and Push/Merge to Production](#final-testing-and-pushmerge-to-production)
+15. [Conclusion](#conclusion)
+16. [Demonstration](#demonstration)
+17. [Contact](#contact)
+
+---
+
+## DevOps Ticket Details (Job Scenario)
+
+- **Ticket ID**: DEVOPS-XX
+- **Title**: Develop a Simple Python App with Healthcheck Endpoint and Implement CI/CD Pipeline
+- **Priority**: High
+- **Status**: Open
+- **Assignee**: [Your Name]
+  
+### Description
+Develop a CI/CD pipeline for a containerized Python application using GitHub Actions, Docker, AWS ECR, Kubernetes (EKS), and Terraform. The pipeline should handle automatic builds, tests, security scans, and deployments to AWS EKS based on branch triggers (dev for staging, main for production).
+
+### Requirements
+- Create a CI/CD pipeline that performs the following steps:
+  - Build and test a containerized Python application.
+  - Push Docker images to AWS Elastic Container Registry (ECR).
+  - Deploy the application to a Kubernetes cluster in AWS EKS using Terraform.
+  - Perform security scans using tools like Bandit, Safety, and Trivy.
+  - Deploy automatically upon commits to the dev or main branch in GitHub.
+  - Implement a `/healthcheck` endpoint that returns application version, description, and the last commit SHA in JSON format.
+
+### Acceptance Criteria
+- A functional GitHub Actions pipeline that builds, tests, and deploys based on branch (dev or main).
+- Successful deployment of the Dockerized application to AWS EKS.
+- Security scans are implemented, and reports are available for review.
+- `/healthcheck` endpoint responds with accurate JSON data.
+- Documentation is complete.
+
+---
+
+## Introduction
+
+This guide walks you through setting up a CI/CD pipeline for a containerized Python application. Using Docker, Terraform, GitHub Actions, Kubernetes, and AWS ECR, you will build, test, and deploy the application in an automated workflow. The goal is to enable automatic deployment on each new code commit.
+
+---
+
+## Prerequisites
+
+Before beginning, ensure you have:
+1. AWS Account with permissions for ECR and EKS.
+2. GitHub Repository for version control and triggering the pipeline.
+3. AWS CLI configured on your local machine.
+4. Kubectl for Kubernetes management.
+5. Terraform for provisioning infrastructure.
+6. VS Code or any text editor of choice.
+
+---
+
+## Key Technologies & Tools
+
+- **Docker**: For containerizing the Python application.
+- **AWS ECR**: As the Docker image registry.
+- **AWS EKS**: To deploy the containerized application in a Kubernetes cluster.
+- **Terraform**: For provisioning EKS and related resources.
+- **GitHub Actions**: For CI/CD, including building, testing, security scanning, and deployment.
+- **Security Tools**: Trivy, Bandit, and Safety for scanning code and Docker images for vulnerabilities.
+
+---
+
+## Repository Structure
 
 ```
+.
+├── .github/
+│   └── workflows/
+│       └── cicdpipeline.yml
+├── terraform/
+│   ├── main.tf
+│   └── variables.tf
+├── app/
+│   └── main.py
+├── tests/
+│   └── test_app.py
+├── gab-app-local.sh
+└── README.md
+```
 
-Sure! Below is a step-by-step guide to create a simple Python application that meets the requirements outlined in your challenge. We'll use the **Flask** framework to create a web application with a `/healthcheck` endpoint that returns application metadata in JSON format.
+---
 
-### Step 1: Setting Up the Project Structure
+## CI/CD Pipeline Overview
 
-Create a directory for your project. Inside this directory, you will create the necessary files.
+The CI/CD pipeline executes the following steps:
+1. Code Commit
+2. Dependency Installation
+3. Lint and Unit Test
+4. Environment Configuration
+5. Build Docker Image
+6. Security Scans
+7. Push to ECR
+8. Update Kubernetes Config
+9. Deploy to Kubernetes
+10. Health Check
 
+---
+
+## Steps to Reproduce the Project
+
+### 1. Clone the Repository
 ```bash
-mkdir healthcheck-app
-cd healthcheck-app
+git clone https://github.com/ougabriel/mod_technical_test.git
+cd mod_technical_test
 ```
 
-### Step 2: Create the Python Application
-
-Create a file named `app.py` in the `healthcheck-app` directory with the following code:
-
-```python
-# app.py
-
-from flask import Flask, jsonify
-import os
-import subprocess
-
-app = Flask(__name__)
-
-# Static information about the application
-APP_VERSION = "1.0"
-APP_DESCRIPTION = "Simple Health Check Application"
-
-def get_last_commit_sha():
-    """Get the last commit SHA from Git."""
-    try:
-        return subprocess.check_output(
-            ["git", "rev-parse", "HEAD"]
-        ).strip().decode('utf-8')
-    except Exception as e:
-        return str(e)
-
-@app.route('/healthcheck', methods=['GET'])
-def healthcheck():
-    """Health check endpoint."""
-    last_commit_sha = get_last_commit_sha()
-    
-    # Construct response
-    response = {
-        "myapplication": [
-            {
-                "version": APP_VERSION,
-                "description": APP_DESCRIPTION,
-                "lastcommitsha": last_commit_sha
-            }
-        ]
-    }
-    
-    return jsonify(response)
-
-if __name__ == '__main__':
-    # Run the application
-    port = os.getenv("APP_PORT", 10000)  # Default to port 10000 if not set
-    app.run(host='0.0.0.0', port=port)
-```
-
-### Step 3: Requirements File
-
-Create a `requirements.txt` file in the same directory to specify the dependencies:
-
-```
-flask
-```
-
-### Step 4: Containerize the Application
-
-Next, create a `Dockerfile` in the same directory to containerize your application:
-
-```dockerfile
-# Dockerfile
-
-# Use the official Python image from the Docker Hub
-FROM python:3.10-slim
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the requirements file and install dependencies
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the application code to the container
-COPY app.py .
-
-# Expose the port the app runs on
-EXPOSE 10000
-
-# Command to run the application
-CMD ["python", "app.py"]
-```
-
-### Step 5: Build the Docker Image
-
-To build the Docker image, run the following command in your terminal from the project directory:
-
+### 2. Local Build and Testing
+Run the provided script to build and test the application locally:
 ```bash
-docker build -t healthcheck-app .
+./gab-app-local.sh
 ```
-
-### Step 6: Run the Docker Container
-
-After building the image, you can run the container:
-
+Test the healthcheck endpoint:
 ```bash
-docker run -d -p 10000:10000 healthcheck-app
+curl http://localhost:3000/healthcheck
 ```
 
-### Step 7: Test the Health Check Endpoint
-
-To test the `/healthcheck` endpoint, you can use `curl` or a web browser:
-
+### 3. CI/CD Pipeline Implementation
+- **Login to AWS**: Set up AWS credentials.
+- **Use Terraform**: Initialize and create workspaces.
 ```bash
-curl http://localhost:10000/healthcheck
+cd terraform
+terraform init
+terraform workspace new dev
+terraform workspace new prod
+terraform workspace select dev
+terraform apply
 ```
+- **GitHub Actions Workflow**: Create the `.github/workflows/cicdpipeline.yml` file with the pipeline configuration.
 
-You should see a response similar to:
+### 4. Create Secrets in GitHub
+Add necessary secrets for AWS account and ECR repository names in your GitHub repository settings.
 
-```json
-{
-    "myapplication": [
-        {
-            "version": "1.0",
-            "description": "Simple Health Check Application",
-            "lastcommitsha": "abc57858585"  // This will show your last commit SHA
-        }
-    ]
-}
-```
-
-### Step 8: Create a CI Pipeline
-
-To create a simple CI pipeline, we'll use GitHub Actions. Create a directory named `.github/workflows` in your project directory and create a file named `ci.yml` inside it:
-
-```yaml
-# .github/workflows/ci.yml
-
-name: CI
-
-on:
-  push:
-    branches:
-      - main  # Change this to your default branch
-  pull_request:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Run tests
-      run: |
-        # Add commands to run your tests here, e.g.:
-        echo "No tests available"
-
-    - name: Build Docker image
-      run: |
-        docker build -t healthcheck-app .
-
-    - name: Run Docker container
-      run: |
-        docker run -d -p 10000:10000 healthcheck-app
-```
-
-### Step 9: Commit and Push Your Code
-
-Now, commit your code and push it to your GitHub repository. Make sure to replace `<your-repo-url>` with your actual repository URL.
-
+### 5. Pushing Changes to Dev Branch
+Make changes and push to the `dev` branch to trigger the pipeline:
 ```bash
-git init
+git checkout -b dev
 git add .
 git commit -m "Initial commit"
-git remote add origin <your-repo-url>
-git push -u origin main
+git push origin dev
 ```
 
-### Conclusion
+---
 
-Now you have a simple Python application with the following capabilities:
-- A `/healthcheck` endpoint that returns application metadata in JSON format.
-- The application is containerized with Docker.
-- A CI pipeline using GitHub Actions that builds the Docker image on each push to the repository.
+## Key Pipeline Stages
 
-Feel free to expand this application by adding tests, logging, and more advanced error handling as needed!
-=======
-#####
->>>>>>> 6c912cad9fdc741766866167c77b1d62d6823f5a
+1. **Build and Test**: Runs unit tests and linting.
+2. **Security Scans**: Uses Bandit, Safety, and Trivy.
+3. **Docker Image Creation**: Builds and pushes the image to ECR.
+4. **Deployment**: Deploys to EKS and verifies health.
+
+---
+
+## Project Highlights
+
+- Automated CI/CD workflow with GitHub Actions.
+- Use of Terraform for infrastructure provisioning.
+- Dockerized Python application with healthcheck endpoint.
+- Comprehensive security checks for code and Docker images.
+
+---
+
+## Demonstration
+
+For a live demonstration of the project, you can view the deployment in action at [your project link here].
+
+---
+
+## Contact
+
+For questions or further discussions, feel free to reach out to me at [Your Email Address] or connect with me on [LinkedIn Profile].
+
+---
+
+This README provides a thorough overview of your project, clearly showcasing your skills and the value you can bring to potential employers.
