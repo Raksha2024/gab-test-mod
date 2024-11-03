@@ -190,4 +190,3 @@ For questions or further discussions, feel free to reach out to me or connect wi
 
 ---
 
-This README provides a thorough overview of your project, clearly showcasing your skills and the value you can bring to potential employers.
