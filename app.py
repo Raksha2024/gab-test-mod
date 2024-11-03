@@ -8,8 +8,10 @@ from wtforms.validators import DataRequired
 import os
 import subprocess
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'default_secret_key')
+
 
 APP_VERSION = "1.0"
 APP_DESCRIPTION = "Gabriel Okom's pre-interview technical test."
