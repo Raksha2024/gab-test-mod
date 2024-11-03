@@ -2,7 +2,9 @@
 import unittest
 from app import app
 
+
 class FlaskAppTests(unittest.TestCase):
+
 
     def setUp(self):
         """Set up test client before each test."""
@@ -15,6 +17,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Login', response.data)  # Adjust based on your HTML content
 
+
     def test_healthcheck(self):
         """Test the healthcheck endpoint."""
         response = self.app.get('/healthcheck')
@@ -24,5 +27,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(json_data['version'], "1.0")
         self.assertIsInstance(json_data['last_commit_sha'], str)  # Check that it's a string
 
+
 if __name__ == '__main__':
     unittest.main()
+
+
