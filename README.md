@@ -1,4 +1,4 @@
-Here's a comprehensive README for your CI/CD project that highlights the tools, objectives, structure, and detailed steps for employers to understand your work:
+Gabriel Okom's Documentation
 
 ---
 
@@ -25,16 +25,9 @@ Here's a comprehensive README for your CI/CD project that highlights the tools, 
 
 ---
 
-## DevOps Ticket Details (Job Scenario)
-
-- **Ticket ID**: DEVOPS-XX
-- **Title**: Develop a Simple Python App with Healthcheck Endpoint and Implement CI/CD Pipeline
-- **Priority**: High
-- **Status**: Open
-- **Assignee**: [Your Name]
   
 ### Description
-Develop a CI/CD pipeline for a containerized Python application using GitHub Actions, Docker, AWS ECR, Kubernetes (EKS), and Terraform. The pipeline should handle automatic builds, tests, security scans, and deployments to AWS EKS based on branch triggers (dev for staging, main for production).
+I was able to develop a CI/CD pipeline for a containerized Python application using GitHub Actions, Docker, AWS ECR, Kubernetes (EKS), and Terraform. The pipeline should handle automatic builds, tests, security scans, and deployments to AWS EKS based on branch triggers (dev for staging, main for production) with `\healthcheck` endpoint that shows the last_commit_sha.
 
 ### Requirements
 - Create a CI/CD pipeline that performs the following steps:
@@ -56,7 +49,7 @@ Develop a CI/CD pipeline for a containerized Python application using GitHub Act
 
 ## Introduction
 
-This guide walks you through setting up a CI/CD pipeline for a containerized Python application. Using Docker, Terraform, GitHub Actions, Kubernetes, and AWS ECR, you will build, test, and deploy the application in an automated workflow. The goal is to enable automatic deployment on each new code commit.
+This guide walks you through how i was able to up a CI/CD pipeline for a containerized Python application. Using Docker, Terraform, GitHub Actions, Kubernetes, and AWS ECR, you will build, test, and deploy the application in an automated workflow. The goal is to enable automatic deployment on each new code commit.
 
 ---
 
@@ -123,8 +116,8 @@ The CI/CD pipeline executes the following steps:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/ougabriel/mod_technical_test.git
-cd mod_technical_test
+git clone https://github.com/ougabriel/gab-test-mod.git
+cd gab-test-mod
 ```
 
 ### 2. Local Build and Testing
@@ -132,10 +125,13 @@ Run the provided script to build and test the application locally:
 ```bash
 ./gab-app-local.sh
 ```
+![image](https://github.com/user-attachments/assets/14c7bb87-1bd4-44c9-9af1-d819d0229ea4)
+
 Test the healthcheck endpoint:
 ```bash
 curl http://localhost:3000/healthcheck
 ```
+![image](https://github.com/user-attachments/assets/71bdc671-31be-466f-8152-54d11f483592)
 
 ### 3. CI/CD Pipeline Implementation
 - **Login to AWS**: Set up AWS credentials.
@@ -184,13 +180,13 @@ git push origin dev
 
 ## Demonstration
 
-For a live demonstration of the project, you can view the deployment in action at [your project link here].
+For a live demonstration of the project, you can view the deployment in action at [[CHECK THE BLOG HERE](https://ougabriel.medium.com/ci-cd-project-deploy-a-python-app-with-docker-ecr-kubernetes-terraform-and-github-actions-on-77d5ea47f108)].
 
 ---
 
 ## Contact
 
-For questions or further discussions, feel free to reach out to me at [Your Email Address] or connect with me on [LinkedIn Profile].
+For questions or further discussions, feel free to reach out to me or connect with me on [[LinkedIn Profile](https://linkedin.com/in/gabrielokom/)].
 
 ---
 
