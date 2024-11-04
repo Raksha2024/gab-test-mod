@@ -9,7 +9,7 @@ Gabriel Okom's Documentation
 
 
 ### Table of Contents
-1. [DevOps Ticket Details (Job Scenario)](#devops-ticket-details)
+1. [DevOps]
 2. [Introduction](#introduction)
 3. [Prerequisites](#prerequisites)
 4. [Key Technologies & Tools](#key-technologies--tools)
